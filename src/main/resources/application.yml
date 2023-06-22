@@ -1,0 +1,11 @@
+server:
+  port: 8888
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bm_db
+#    ?useSSL=false;serverTimezone=Asia/Shanghai
+    username: root
+    password: zed123
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  #扫描所有mybatis的xml文件
