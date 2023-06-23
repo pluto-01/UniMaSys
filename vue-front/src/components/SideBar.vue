@@ -19,7 +19,9 @@
       <el-menu-item index="/user"
         ><i class="el-icon-s-custom"></i><span>用户管理</span></el-menu-item
       >
-      <el-menu-item index="2-2"><span>权限管理</span></el-menu-item>
+      <el-menu-item index="/role"
+        ><i class="el-icon-s-custom"></i><span>角色管理</span></el-menu-item
+      >
     </el-submenu>
     <el-submenu index="3">
       <template slot="title"

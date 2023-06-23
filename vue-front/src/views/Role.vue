@@ -5,19 +5,7 @@
         style="width: 200px"
         suffix-icon="el-icon-search"
         placeholder="请输入用户名称"
-        v-model="nickname"
-      ></el-input>
-      <el-input
-        style="width: 200px; margin-left: 5px"
-        suffix-icon="el-icon-phone"
-        placeholder="请输入用户手机号"
-        v-model="phone"
-      ></el-input>
-      <el-input
-        style="width: 200px; margin-left: 5px"
-        suffix-icon="el-icon-message"
-        placeholder="请输入用户邮箱"
-        v-model="email"
+        v-model="name"
       ></el-input>
       <el-button style="margin-left: 5px" type="primary" @click="load"
         >搜索</el-button
@@ -52,25 +40,14 @@
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column prop="id" label="ID" width="150" align="center">
       </el-table-column>
-      <el-table-column
-        prop="nickname"
-        label="用户名"
-        width="150"
-        align="center"
-      >
+      <el-table-column prop="name" label="名称" width="150" align="center">
       </el-table-column>
       <el-table-column
-        prop="gender"
-        label="性别"
+        prop="description"
+        label="描述"
         width="170"
         align="center"
       ></el-table-column>
-      <el-table-column prop="phone" label="手机号" width="170" align="center">
-      </el-table-column>
-      <el-table-column prop="email" label="邮箱" width="170" align="center">
-      </el-table-column>
-      <el-table-column prop="address" label="地址" align="center">
-      </el-table-column>
       <el-table-column label="操作" align="center">
         <template v-slot:default="scope">
           <el-button type="success" @click="handleEdit(scope.row)"
@@ -112,20 +89,14 @@
       width="30%"
     >
       <el-form label-width="80px" size="small">
-        <el-form-item label="用户名">
-          <el-input v-model="userForm.nickname" auto-complete="off"></el-input>
+        <el-form-item label="名称">
+          <el-input v-model="userForm.name" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="性别">
-          <el-input v-model="userForm.gender" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="手机号">
-          <el-input v-model="userForm.phone" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱">
-          <el-input v-model="userForm.email" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="地址">
-          <el-input v-model="userForm.address" auto-complete="off"></el-input>
+        <el-form-item label="描述">
+          <el-input
+            v-model="userForm.description"
+            auto-complete="off"
+          ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -141,27 +112,12 @@
       width="30%"
     >
       <el-form label-width="80px" size="small">
-        <el-form-item label="用户名">
+        <el-form-item label="名称">
+          <el-input v-model="editUserForm.name" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="描述">
           <el-input
-            v-model="editUserForm.nickname"
-            auto-complete="off"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="性别">
-          <el-input
-            v-model="editUserForm.gender"
-            auto-complete="off"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="手机号">
-          <el-input v-model="editUserForm.phone" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱">
-          <el-input v-model="editUserForm.email" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="地址">
-          <el-input
-            v-model="editUserForm.address"
+            v-model="editUserForm.description"
             auto-complete="off"
           ></el-input>
         </el-form-item>
@@ -178,13 +134,11 @@
 import request from "../utils/request";
 
 export default {
-  name: "User",
+  name: "Role",
   data() {
     return {
       tableData: [],
-      nickname: "",
-      phone: "",
-      email: "",
+      name: "",
       totalUser: 0,
       pageNum: 1,
       pageSize: 5,
@@ -201,23 +155,22 @@ export default {
   methods: {
     load() {
       request
-        .get("/user/page", {
+        .get("/role/page", {
           params: {
             pageNum: this.pageNum,
             pageSize: this.pageSize,
-            nickname: this.nickname,
-            phone: this.phone,
-            email: this.email,
+            name: this.name,
           },
         })
         .then((res) => {
+          console.log(res);
           this.tableData = res.data;
           this.totalUser = res.totalUser;
         });
     },
     deleteBatch() {
       let ids = this.multipleSelection.map((v) => v.id); //把对象数组转换为只有id的数组
-      request.post("/user/del/batch", ids).then((res) => {
+      request.post("/role/del/batch", ids).then((res) => {
         if (res.code === "200") {
           this.$message.success("批量删除成功");
           this.load();
@@ -249,8 +202,8 @@ export default {
       this.editDialogVisible = true;
     },
     handleDelete(id) {
-      request.delete("/user/" + id).then((res) => {
-        if (res.code === "200") {
+      request.delete("/role/" + id).then((res) => {
+        if (res) {
           this.$message.success("删除成功");
           this.load();
         } else {
@@ -259,7 +212,7 @@ export default {
       });
     },
     add() {
-      request.post("/user/add", this.userForm).then((res) => {
+      request.post("/role/add", this.userForm).then((res) => {
         if (res.code === "200") {
           this.$message.success("保存成功");
           this.DialogVisible = false;
@@ -271,7 +224,7 @@ export default {
       });
     },
     edit() {
-      request.post("/user/update", this.editUserForm).then((res) => {
+      request.post("/role/update", this.editUserForm).then((res) => {
         if (res.code === "200") {
           this.$message.success("保存成功");
           this.editDialogVisible = false;
@@ -283,7 +236,7 @@ export default {
       });
     },
     reset() {
-      (this.nickname = ""), (this.email = ""), (this.phone = ""), this.load();
+      (this.name = ""), this.load();
     },
   },
 };

@@ -3,7 +3,6 @@ package com.zed.service;
 
 import com.zed.controller.dto.UserDTO;
 import com.zed.entity.User;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,7 +10,9 @@ public interface UserService {
 
     User selectUserInfo(String id);
 
-    int save(User user);
+    int addUser(User user);
+
+    int updateUser(User user);
 
     Integer deleteUserById(Integer id);
 

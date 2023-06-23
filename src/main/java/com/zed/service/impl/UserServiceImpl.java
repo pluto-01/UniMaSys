@@ -26,13 +26,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int save(User user) {
-        if (user.getId() == null && user.getUsername() == null) {  //User没id则为新增操作
-            return userMapper.addUser(user);
-        } else {  //否则为更新
-            return userMapper.updateUser(user);
-        }
+    public int addUser(User user) {
+        return userMapper.addUser(user);
+//        if (user.getId() == null && user.getUsername() == null) {  //User没id则为新增操作
+//            return userMapper.addUser(user);
+//        } else {  //否则为更新
+//            return userMapper.updateUser(user);
+//        }
 
+    }
+
+    @Override
+    public int updateUser(User user) {
+        return userMapper.updateUser(user);
     }
 
     @Override

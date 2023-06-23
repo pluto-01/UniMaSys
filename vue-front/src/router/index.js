@@ -23,6 +23,11 @@ const routes = [
                     component: () => import('../views/MainPage.vue'),
                 },
                 {
+                    path: 'role',
+                    name: '角色管理',
+                    component: () => import('../views/Role.vue'),
+                },
+                {
                     path: 'person',
                     name: '个人中心',
                     component: () => import('../views/Person.vue'),

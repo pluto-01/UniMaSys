@@ -27,6 +27,7 @@ public class UserController {
             return Result.error(Constants.CODE_400, "参数错误");
         }
         UserDTO dto = userService.login(userDTO);
+
         return Result.success(dto);
     }
 
@@ -37,10 +38,16 @@ public class UserController {
         return Result.success(user);
     }
 
-    @PostMapping
-    public Result saveUser(@RequestBody User user) {
-        return Result.success(userService.save(user));
+    @PostMapping("/add")
+    public Result createUser(@RequestBody User user) {
+        return Result.success(userService.addUser(user));
     }
+
+    @PostMapping("/update")
+    public Result updateUser(@RequestBody User user) {
+        return Result.success(userService.updateUser(user));
+    }
+
 
     @DeleteMapping("/{id}")
     public Result deleteUser(@PathVariable Integer id) { //表示url参数
