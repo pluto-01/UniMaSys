@@ -22,6 +22,11 @@ const routes = [
                     name: '首页',
                     component: () => import('../views/MainPage.vue'),
                 },
+                {
+                    path: 'person',
+                    name: '个人中心',
+                    component: () => import('../views/Person.vue'),
+                },
             ]
     },
     {

@@ -1,39 +1,17 @@
 package com.zed.controller.dto;
 
+
+import lombok.Data;
+
+/**
+ * 接收前端登录传来的参数
+ */
+@Data
 public class UserDTO {
     private String username;
     private String password;
+    private String nickname;
     private String avatar;
+    private String token;
 
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

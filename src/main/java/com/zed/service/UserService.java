@@ -3,17 +3,26 @@ package com.zed.service;
 
 import com.zed.controller.dto.UserDTO;
 import com.zed.entity.User;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.annotations.Param;
 
-//@Service  //把类注入到Spring容器
+import java.util.List;
+
 public interface UserService {
+
+    User selectUserInfo(String id);
+
     int save(User user);
 
-//    Integer deleteUserById(Integer id);
-//
-//    boolean deleteUserBatchById(List<Integer> ids);
+    Integer deleteUserById(Integer id);
+
+    //
+    boolean deleteUserBatchById(List<Integer> ids);
 
     UserDTO login(UserDTO userDTO);
 
-//    List<User> selectUserByPage(Integer pageNum, Integer pageSize, String username, String phone, String email);
+    List<User> selectUserByPage(Integer pageNum, Integer pageSize, String nickname, String phone, String email);
+
+    Integer selectTotalUser(String nickname, String phone, String email);
+
+    User selectUserByUserName(String username);
 }

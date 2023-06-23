@@ -1,11 +1,11 @@
 <template>
-    <div>
+  <div>
     <div style="margin: 10px 0">
       <el-input
         style="width: 200px"
         suffix-icon="el-icon-search"
         placeholder="请输入用户名称"
-        v-model="username"
+        v-model="nickname"
       ></el-input>
       <el-input
         style="width: 200px; margin-left: 5px"
@@ -53,7 +53,7 @@
       <el-table-column prop="id" label="ID" width="150" align="center">
       </el-table-column>
       <el-table-column
-        prop="username"
+        prop="nickname"
         label="用户名"
         width="150"
         align="center"
@@ -113,7 +113,7 @@
     >
       <el-form label-width="80px" size="small">
         <el-form-item label="用户名">
-          <el-input v-model="userForm.username" auto-complete="off"></el-input>
+          <el-input v-model="userForm.nickname" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="性别">
           <el-input v-model="userForm.gender" auto-complete="off"></el-input>
@@ -133,7 +133,7 @@
         <el-button type="primary" @click="save">确定</el-button>
       </div>
     </el-dialog>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -144,7 +144,7 @@ export default {
   data() {
     return {
       tableData: [],
-      username: "",
+      nickname: "",
       phone: "",
       email: "",
       totalUser: 0,
@@ -165,7 +165,7 @@ export default {
           params: {
             pageNum: this.pageNum,
             pageSize: this.pageSize,
-            username: this.username,
+            nickname: this.nickname,
             phone: this.phone,
             email: this.email,
           },
@@ -232,7 +232,7 @@ export default {
       });
     },
     reset() {
-      (this.username = ""), (this.email = ""), (this.phone = ""), this.load();
+      (this.nickname = ""), (this.email = ""), (this.phone = ""), this.load();
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div>
+    <div style="flex: 1">
       <span
         :class="collapseBtnClass"
         style="cursor: pointer"
@@ -14,16 +14,32 @@
     </div>
 
     <!-- <span class="title">通用后台管理系统</span> -->
+    <!-- <div class="avatar">
+      <el-avatar size="small" :src="userInfo.avatar"></el-avatar>
+    </div> -->
     <el-dropdown class="dropDown">
-      <span>王小虎</span
-      ><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>个人中心</el-dropdown-item>
-        <el-dropdown-item @click.native="signOut"
-          >退出登录
-          <!-- <router-link to="/login" style="text-decoration: none; display: block"
-            >退出登录</router-link
-          > -->
+      <div style="display: inline-block">
+        <img :src="userInfo.avatar" alt="" class="avatar" />
+        <span>{{ userInfo.nickname }}</span>
+      </div>
+
+      <i class="el-icon-arrow-down" style="margin-left: 5px"></i>
+      <el-dropdown-menu
+        slot="dropdown"
+        style="width: 100px; text-align: center"
+      >
+        <el-dropdown-item style="font-size: 14px; padding: 5px 0">
+          <router-link
+            to="/person"
+            class="person"
+            style="text-decoration: none; color: black"
+            >个人中心</router-link
+          >
+        </el-dropdown-item>
+        <el-dropdown-item style="font-size: 14px; padding: 5px 0">
+          <router-link to="/login" style="text-decoration: none; color: black"
+            @click="signOut">退出登录</router-link
+          >
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -39,11 +55,20 @@ export default {
     collapse: Function,
   },
   data() {
-    return {};
+    return {
+      userInfo: localStorage.getItem("user")
+        ? JSON.parse(localStorage.getItem("user"))
+        : {},
+    };
+  },
+  mounted() {
+    console.log(userInfo);
   },
   methods: {
     signOut() {
       this.$router.push("/login");
+      localStorage.removeItem("user");
+      this.$message.success("退出成功");
     },
   },
   computed: {
@@ -87,11 +112,17 @@ export default {
   color: #fff;
 }
 .dropDown {
-  position: absolute;
-  right: 40px;
-  line-height: 60px;
-  width: 100px;
-  color: #fff;
+  width: auto;
+  text-align: right;
   cursor: pointer;
+  color: #fff;
+}
+
+.avatar {
+  width: 30px;
+  border-radius: 50%;
+  position: relative;
+  top: 10px;
+  right: 5px;
 }
 </style>

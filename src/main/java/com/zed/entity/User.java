@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User {
     private Integer id;
     private String username;
+    private String nickname;
     @JsonIgnore         //不展示JSON数据
     private String password;
     private String gender;
@@ -19,6 +20,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", password='" + password + '\'' +
                 ", gender='" + gender + '\'' +
                 ", phone='" + phone + '\'' +
@@ -27,6 +29,14 @@ public class User {
                 ", avatar='" + avatar + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public Integer getId() {

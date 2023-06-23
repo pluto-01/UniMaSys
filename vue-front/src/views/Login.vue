@@ -13,7 +13,6 @@
             placeholder="请输入用户名或学号"
             v-model="userInfo.username"
           />
-          <!-- v-model="userInfo.username" -->
         </div>
         <div class="input-container">
           <label class="login_label">密码</label>
@@ -25,7 +24,6 @@
             placeholder="请输入密码"
             v-model="userInfo.password"
           />
-          <!-- v-model="userInfo.password" -->
         </div>
         <div class="btn-container">
           <div class="identity-container">
@@ -47,18 +45,18 @@ export default {
   data() {
     return {
       userInfo: {},
-      // username: "",
-      // password: "",
     };
   },
   methods: {
     login() {
       this.request.post("/user/login", this.userInfo).then((res) => {
         console.log(res);
-        if (!res) {
-          this.$message.error("错误");
-        } else {
+        if (res.code === "200") {
+          localStorage.setItem("user", JSON.stringify(res.data)); //  存储用户信息到浏览器
           this.$router.push("/");
+          this.$message.success("登录成功");
+        } else {
+          this.$message.error(res.$message);
         }
       });
     },

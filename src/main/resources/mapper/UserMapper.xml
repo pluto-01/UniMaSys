@@ -3,11 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zed.mapper.UserMapper">
+    <insert id="addUser">
+        insert into sys_user (nickname, password, gender, phone, email, address)
+        VALUES (#{nickname}, #{password}, #{gender}, #{phone}, #{email}, #{address})
+    </insert>
     <update id="updateUser">
         update sys_user
         <set>
-            <if test="username != null">
-                username = #{username},
+            <if test="nickname != null">
+                nickname = #{nickname},
             </if>
             <if test="password != null">
                 `password` = #{password},
@@ -20,6 +24,9 @@
             </if>
             <if test="email != null">
                 email = #{email},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar}
             </if>
             <if test="address != null">
                 address = #{address}
