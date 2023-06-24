@@ -37,8 +37,11 @@
           >
         </el-dropdown-item>
         <el-dropdown-item style="font-size: 14px; padding: 5px 0">
-          <router-link to="/login" style="text-decoration: none; color: black"
-            @click="signOut">退出登录</router-link
+          <span
+            to="/login"
+            style="text-decoration: none; color: black"
+            @click="signOut"
+            >退出登录</span
           >
         </el-dropdown-item>
       </el-dropdown-menu>
@@ -68,6 +71,7 @@ export default {
     signOut() {
       this.$router.push("/login");
       localStorage.removeItem("user");
+      console.log(localStorage.getItem("user"));
       this.$message.success("退出成功");
     },
   },
@@ -123,6 +127,6 @@ export default {
   border-radius: 50%;
   position: relative;
   top: 10px;
-  right: 5px;
+  right: 10px;
 }
 </style>

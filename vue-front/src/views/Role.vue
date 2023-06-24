@@ -38,14 +38,12 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column prop="id" label="ID" width="150" align="center">
-      </el-table-column>
-      <el-table-column prop="name" label="名称" width="150" align="center">
+      <el-table-column prop="id" label="ID" width="80" align="center"> </el-table-column>
+      <el-table-column prop="name" label="名称" align="center">
       </el-table-column>
       <el-table-column
         prop="description"
         label="描述"
-        width="170"
         align="center"
       ></el-table-column>
       <el-table-column label="操作" align="center">
@@ -77,7 +75,7 @@
         :currentPage-="pageNum"
         :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="totalUser"
+        :total="totalRole"
       >
       </el-pagination>
     </div>
@@ -139,7 +137,7 @@ export default {
     return {
       tableData: [],
       name: "",
-      totalUser: 0,
+      totalRole: 0,
       pageNum: 1,
       pageSize: 5,
       userForm: {},
@@ -165,7 +163,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.tableData = res.data;
-          this.totalUser = res.totalUser;
+          this.totalRole = res.totalRole;
         });
     },
     deleteBatch() {

@@ -14,6 +14,7 @@ public class User {
     private String address;
     private String avatar;
     private Integer status;
+    private String ROLE_TYPE;
 
     @Override
     public String toString() {
@@ -28,7 +29,16 @@ public class User {
                 ", address='" + address + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", status=" + status +
+                ", ROLE_TYPE='" + ROLE_TYPE + '\'' +
                 '}';
+    }
+
+    public String getROLE_TYPE() {
+        return ROLE_TYPE;
+    }
+
+    public void setROLE_TYPE(String ROLE_TYPE) {
+        this.ROLE_TYPE = ROLE_TYPE;
     }
 
     public String getNickname() {

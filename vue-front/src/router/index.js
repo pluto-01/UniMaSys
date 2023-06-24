@@ -28,6 +28,11 @@ const routes = [
                     component: () => import('../views/Role.vue'),
                 },
                 {
+                    path: 'video',
+                    name: '视频管理',
+                    component: () => import('../views/Video.vue'),
+                },
+                {
                     path: 'person',
                     name: '个人中心',
                     component: () => import('../views/Person.vue'),

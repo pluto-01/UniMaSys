@@ -58,5 +58,4 @@ public class RoleController {
         res.put("totalRole", totalRole);
         return res;
     }
-
 }

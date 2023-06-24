@@ -217,14 +217,18 @@ export default {
     },
     deleteBatch() {
       let ids = this.multipleSelection.map((v) => v.id); //把对象数组转换为只有id的数组
-      request.post("/user/del/batch", ids).then((res) => {
-        if (res.code === "200") {
-          this.$message.success("批量删除成功");
-          this.load();
-        } else {
-          this.$message.error("批量删除失败");
-        }
-      });
+      if (this.multipleSelection != "") {
+        request.post("/user/del/batch", ids).then((res) => {
+          if (res.code === "200") {
+            this.$message.success("批量删除成功");
+            this.load();
+          } else {
+            this.$message.error("批量删除失败");
+          }
+        });
+      } else {
+        this.$message.error("请先选择您要删除的对象");
+      }
     },
     // 批量删除
     handleSelectionChange(val) {
