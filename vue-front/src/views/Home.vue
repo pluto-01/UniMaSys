@@ -8,11 +8,12 @@
         <Header
           :collapseBtnClass="collapseBtnClass"
           :collapse="collapse"
+          :user="user"
         ></Header
       ></el-header>
       <el-main>
         <!-- 表示当前页面的子路由会在此显示 -->
-        <router-view />
+        <router-view @refreshUser="getUser" />
       </el-main>
     </el-container>
   </el-container>
@@ -32,9 +33,12 @@ export default {
       collapseBtnClass: "el-icon-s-fold",
       isCollapse: false,
       asideWidth: 200,
+      user: {},
     };
   },
-
+  created() {
+    this.getUser();
+  },
   methods: {
     collapse() {
       //点击收缩菜单按钮触发
@@ -45,6 +49,20 @@ export default {
       } else {
         this.asideWidth = 200;
         this.collapseBtnClass = "el-icon-s-fold";
+      }
+    },
+
+    //获取用户最新数据
+    getUser() {
+      let username = localStorage.getItem("user")
+        ? JSON.parse(localStorage.getItem("user")).username
+        : "";
+      if (username) {
+        //从后台获取User数据
+        this.request.get("/user/username/" + username).then((res) => {
+          //重新赋值后台最新的user数据
+          this.user = res.data;
+        });
       }
     },
   },

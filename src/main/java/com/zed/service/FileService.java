@@ -20,6 +20,8 @@ public interface FileService {
 
     int updateFileEnable(Files files);
 
+    int updateFileName(Files files);
+
     List<Files> selectFileByPage(Integer pageNum, Integer pageSize, String name);
 
     Integer selectTotalFile(String name);

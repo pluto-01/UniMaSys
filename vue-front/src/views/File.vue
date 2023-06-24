@@ -45,35 +45,31 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column prop="id" label="ID" width="150" align="center">
-      </el-table-column>
-      <el-table-column prop="name" label="文件名" width="150" align="center">
+      <el-table-column prop="id" label="ID" align="center"> </el-table-column>
+      <el-table-column prop="name" label="文件名" align="center">
       </el-table-column>
       <el-table-column
         prop="type"
         label="文件类型"
-        width="170"
         align="center"
       ></el-table-column>
-      <el-table-column
-        prop="size"
-        label="文件大小(kb)"
-        width="170"
-        align="center"
-      >
+      <el-table-column prop="size" label="文件大小(kb)" align="center">
       </el-table-column>
-      <el-table-column label="下载" width="170" align="center">
+      <el-table-column label="预览" align="center">
+        <template slot-scope="scope">
+          <el-button type="primary" @click="preview(scope.row.url)"
+            >预览</el-button
+          >
+        </template>
+      </el-table-column>
+      <el-table-column label="下载" align="center">
         <template v-slot:default="scope">
           <el-button type="primary" @click="download(scope.row.url)"
             >下载</el-button
           >
         </template>
       </el-table-column>
-      <el-table-column
-        prop="enable"
-        label="启用"
-        align="center"
-      >
+      <el-table-column prop="enable" label="启用" align="center">
         <template v-slot:default="scope">
           <el-switch
             v-model="scope.row.enable"
@@ -83,8 +79,11 @@
           ></el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作" align="center" width="180">
         <template v-slot:default="scope">
+          <el-button type="success" @click="handleEdit(scope.row)"
+            >编辑<i class="el-icon-edit"></i
+          ></el-button>
           <el-popconfirm
             style="margin-left: 5px"
             confirm-button-text="确定"
@@ -113,6 +112,30 @@
       >
       </el-pagination>
     </div>
+    <!-- 编辑文件名对话框 -->
+    <el-dialog
+      title="文件信息"
+      :visible.sync="editDialogVisible"
+      center
+      width="30%"
+    >
+      <el-form label-width="80px" size="small">
+        <el-form-item label="ID">
+          <el-input
+            v-model="editFileForm.id"
+            auto-complete="off"
+            disabled
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="文件名称">
+          <el-input v-model="editFileForm.name" auto-complete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="edit">确定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -127,6 +150,8 @@ export default {
       pageNum: 1,
       pageSize: 5,
       totalFile: 0,
+      editFileForm: {},
+      editDialogVisible: false,
     };
   },
   created() {
@@ -146,6 +171,19 @@ export default {
           this.tableData = res.data;
           this.totalFile = res.totalFile;
         });
+    },
+    edit() {
+      this.request.post("/file/update/name", this.editFileForm).then((res) => {
+        if (res.code === "200") {
+          this.$message.success("保存成功");
+          this.editDialogVisible = false;
+          this.load();
+          console.log(res);
+          this.editDialogVisible = false;
+        } else {
+          this.$message.error("操作失败");
+        }
+      });
     },
     handleDelete(id) {
       this.request.delete("/file/" + id).then((res) => {
@@ -177,7 +215,6 @@ export default {
       this.multipleSelection = val;
     },
     handleSizeChange(pageSize) {
-      console.log(pageSize);
       this.pageSize = pageSize;
       this.load();
     },
@@ -186,7 +223,10 @@ export default {
       this.pageNum = pageNum;
       this.load();
     },
-
+    handleEdit(row) {
+      this.editFileForm = JSON.parse(JSON.stringify(row));
+      this.editDialogVisible = true;
+    },
     handleUploadSuccess(res) {
       this.load();
     },
@@ -199,7 +239,7 @@ export default {
     },
     //启用
     changeEnable(row) {
-      this.request.post("/file/update", row).then((res) => {
+      this.request.post("/file/update/enable", row).then((res) => {
         if (res.code === "200") {
           this.$message.success("操作成功");
           // this.selectable = false;
@@ -207,6 +247,13 @@ export default {
           this.$message.error("操作失败");
         }
       });
+    },
+    //预览
+    preview(url) {
+      window.open(
+        "https://file.keking.cn/onlinePreview?url=" +
+          encodeURIComponent(window.btoa(url))
+      );
     },
   },
 };

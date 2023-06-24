@@ -34,7 +34,6 @@ public class UserController {
     @GetMapping("/username/{username}")
     public Result findUser(@PathVariable String username) {
         User user = userService.selectUserByUserName(username);
-        System.out.println(user);
         return Result.success(user);
     }
 

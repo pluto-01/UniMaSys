@@ -1,5 +1,9 @@
 <template>
-  <div><h1>Hello World!</h1></div>
+  <div>
+    <el-card style="text-align: center">
+      <h1>通用后台管理系统</h1>
+    </el-card>
+  </div>
 </template>
 
 <script>

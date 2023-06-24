@@ -31,6 +31,11 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    public int updateFileName(Files files) {
+        return fileMapper.updateFileName(files);
+    }
+
+    @Override
     public List<Files> selectFileByPage(Integer pageNum, Integer pageSize, String name) {
         return fileMapper.selectFileByPage(pageNum, pageSize, name);
     }

@@ -19,8 +19,8 @@
     </div> -->
     <el-dropdown class="dropDown">
       <div style="display: inline-block">
-        <img :src="userInfo.avatar" alt="" class="avatar" />
-        <span>{{ userInfo.nickname }}</span>
+        <img :src="user.avatar" alt="" class="avatar" />
+        <span>{{ user.nickname }}</span>
       </div>
 
       <i class="el-icon-arrow-down" style="margin-left: 5px"></i>
@@ -28,6 +28,12 @@
         slot="dropdown"
         style="width: 100px; text-align: center"
       >
+        <el-dropdown-item
+          style="font-size: 14px; padding: 5px 0; color: black"
+          @click.native="jumpToGitHub"
+        >
+          <i class="iconfont">&#xe85a;</i>GitHub</el-dropdown-item
+        >
         <el-dropdown-item style="font-size: 14px; padding: 5px 0">
           <router-link
             to="/person"
@@ -55,13 +61,10 @@ export default {
   props: {
     collapseBtnClass: String,
     collapse: Function,
+    user: Object,
   },
   data() {
-    return {
-      userInfo: localStorage.getItem("user")
-        ? JSON.parse(localStorage.getItem("user"))
-        : {},
-    };
+    return {};
   },
   methods: {
     signOut() {
@@ -69,6 +72,9 @@ export default {
       localStorage.removeItem("user");
       console.log(localStorage.getItem("user"));
       this.$message.success("退出成功");
+    },
+    jumpToGitHub() {
+      window.location.href = "https://github.com/pluto-01";
     },
   },
   computed: {
@@ -124,5 +130,24 @@ export default {
   position: relative;
   top: 10px;
   right: 10px;
+}
+
+@font-face {
+  font-family: "iconfont"; /* Project id 4135649 */
+  src: url("//at.alicdn.com/t/c/font_4135649_oqisbfu5v1f.woff2?t=1687603131394")
+      format("woff2"),
+    url("//at.alicdn.com/t/c/font_4135649_oqisbfu5v1f.woff?t=1687603131394")
+      format("woff"),
+    url("//at.alicdn.com/t/c/font_4135649_oqisbfu5v1f.ttf?t=1687603131394")
+      format("truetype");
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
 }
 </style>

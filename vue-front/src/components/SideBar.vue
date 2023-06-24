@@ -20,10 +20,10 @@
         ><i class="el-icon-s-custom"></i><span>用户管理</span></el-menu-item
       >
       <el-menu-item index="/role"
-        ><i class="el-icon-s-custom"></i><span>角色管理</span></el-menu-item
+        ><i class="el-icon-share"></i><span>角色管理</span></el-menu-item
       >
       <el-menu-item index="/file"
-        ><i class="el-icon-document"></i><span>文件管理</span></el-menu-item
+        ><i class="el-icon-folder"></i><span>文件管理</span></el-menu-item
       >
     </el-submenu>
   </el-menu>

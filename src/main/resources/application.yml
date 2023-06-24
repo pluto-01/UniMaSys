@@ -7,6 +7,10 @@ spring:
     #    ?useSSL=false;serverTimezone=Asia/Shanghai
     username: root
     password: zed123
+  servlet: #设置最大上传文件
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 mybatis:
   mapper-locations: classpath:mapper/*.xml  #扫描所有mybatis的xml文件
   config-location:

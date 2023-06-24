@@ -4,7 +4,7 @@
       <el-form label-width="80px" size="small">
         <el-upload
           class="avatar-uploader"
-          action="https://localhost:8888/upload"
+          action="http://localhost:8888/file/upload"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
         >
@@ -47,26 +47,34 @@ export default {
     };
   },
   created() {
-    this.request.get("/user/username/" + this.userInfo.username).then((res) => {
-      if (res.code === "200") {
-        this.userForm = res.data;
-        console.log(this.userForm);
-      } else {
-        console.log(res);
-      }
-    });
+    this.load();
   },
   methods: {
+    load() {
+      this.request
+        .get("/user/username/" + this.userInfo.username)
+        .then((res) => {
+          if (res.code === "200") {
+            this.userForm = res.data;
+            console.log(this.userForm);
+          } else {
+            console.log(res);
+          }
+        });
+    },
     update() {
       this.request.post("/user/update", this.userForm).then((res) => {
         if (res.code === "200") {
           this.$message.success("保存成功");
+          this.load();
+          this.$emit("refreshUser");
         } else {
           this.$message.error("操作失败");
         }
       });
     },
     handleAvatarSuccess(res) {
+      console.log(res);
       this.userForm.avatar = res;
     },
   },
@@ -80,12 +88,12 @@ export default {
 }
 .avatar-uploader {
   text-align: center;
-  border-radius: 10px;
+
   padding-bottom: 15px;
 }
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -105,5 +113,6 @@ export default {
   width: 138px;
   height: 138px;
   display: block;
+  border-radius: 8px;
 }
 </style>

@@ -104,8 +104,6 @@ h2 {
 .container .input-container {
   display: flex;
   flex-direction: column;
-  /*align-items: center;*/
-  /*align-items: start;*/
   margin-bottom: 10px;
 }
 
@@ -139,7 +137,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .forget_pwd {
@@ -166,7 +164,7 @@ input:focus {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: start;
+  align-items: flex-start;
   margin-top: 20px;
 }
 

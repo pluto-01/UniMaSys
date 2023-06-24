@@ -104,10 +104,10 @@ public class FileController {
                                               @RequestParam(defaultValue = "") String name) {
         pageNum = (pageNum - 1) * pageSize;
         List<Files> data = fileService.selectFileByPage(pageNum, pageSize, name);
-        Integer totalUser = fileService.selectTotalFile(name);
+        Integer totalFile = fileService.selectTotalFile(name);
         Map<String, Object> res = new HashMap<>();
         res.put("data", data);
-        res.put("totalUser", totalUser);
+        res.put("totalFile", totalFile);
         return res;
     }
 
@@ -121,8 +121,13 @@ public class FileController {
         return Result.success(fileService.deleteFileBatchById(ids));
     }
 
-    @PostMapping("/update")
+    @PostMapping("/update/enable")
     public Result updateFileEnable(@RequestBody Files files) {
         return Result.success(fileService.updateFileEnable(files));
+    }
+
+    @PostMapping("/update/name")
+    public Result updateFileName(@RequestBody Files files) {
+        return Result.success(fileService.updateFileName(files));
     }
 }

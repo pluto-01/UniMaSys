@@ -21,6 +21,9 @@ public interface FileMapper {
     @Update("update sys_file set enable = #{enable} where id = #{id}")
     int updateFileEnable(Files files);
 
+    @Update("update sys_file set name = #{name} where id = #{id}")
+    int updateFileName(Files files);
+
     @Select("select * from sys_file where(name like concat('%',#{name},'%')  and status = 0) limit #{pageNum},#{pageSize}")
     List<Files> selectFileByPage(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("name") String name);
 
