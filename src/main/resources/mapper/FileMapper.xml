@@ -7,6 +7,12 @@
         insert into sys_file (name, type, size, url, md5)
         VALUES (#{name}, #{type}, #{size}, #{url}, #{md5})
     </insert>
-
+    <update id="deleteFileBatchById" parameterType="java.lang.Integer">
+        update sys_file set status = 1
+        where id in
+        <foreach collection="list" item="ids" index="no" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </update>
 
 </mapper>

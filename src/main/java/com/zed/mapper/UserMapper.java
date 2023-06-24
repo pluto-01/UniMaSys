@@ -39,6 +39,6 @@ public interface UserMapper {
     @Select("select id,username,nickname,avatar from sys_user where username = #{username} and password = #{password}")
     User selectUserByNameAndPWD(@Param("username") String username, @Param("password") String password);
 
-    @Select("select nickname,gender,phone,email,address from sys_user where username = #{username}")
+    @Select("select id,nickname,gender,phone,email,address,avatar from sys_user where username = #{username}")
     User selectUserByUserName(@Param("username") String username);
 }

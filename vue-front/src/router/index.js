@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -28,9 +29,9 @@ const routes = [
                     component: () => import('../views/Role.vue'),
                 },
                 {
-                    path: 'video',
-                    name: '视频管理',
-                    component: () => import('../views/Video.vue'),
+                    path: 'file',
+                    name: '文件管理',
+                    component: () => import('../views/File.vue'),
                 },
                 {
                     path: 'person',

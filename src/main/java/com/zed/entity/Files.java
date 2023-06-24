@@ -13,6 +13,6 @@ public class Files {
     private String url;
     private String md5;
     private Integer status;
-    private Integer enable;
+    private Boolean enable;
 
 }

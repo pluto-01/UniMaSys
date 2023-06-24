@@ -13,9 +13,6 @@
             <if test="nickname != null">
                 nickname = #{nickname},
             </if>
-            <if test="password != null">
-                `password` = #{password},
-            </if>
             <if test="gender != null">
                 gender = #{gender},
             </if>

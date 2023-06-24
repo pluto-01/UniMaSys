@@ -5,7 +5,9 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
+import com.zed.common.Result;
 import com.zed.entity.Files;
+import com.zed.entity.User;
 import com.zed.service.FileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 文件上传相关接口
@@ -94,4 +98,31 @@ public class FileController {
         os.close();
     }
 
+    @GetMapping("/page")
+    public Map<String, Object> findUserByPage(@RequestParam Integer pageNum,
+                                              @RequestParam Integer pageSize,
+                                              @RequestParam(defaultValue = "") String name) {
+        pageNum = (pageNum - 1) * pageSize;
+        List<Files> data = fileService.selectFileByPage(pageNum, pageSize, name);
+        Integer totalUser = fileService.selectTotalFile(name);
+        Map<String, Object> res = new HashMap<>();
+        res.put("data", data);
+        res.put("totalUser", totalUser);
+        return res;
+    }
+
+    @DeleteMapping("/{id}")
+    public Result deleteFile(@PathVariable Integer id) { //表示url参数
+        return Result.success(fileService.deleteFileById(id));
+    }
+
+    @PostMapping("/del/batch")
+    public Result deleteFileBatch(@RequestBody List<Integer> ids) {
+        return Result.success(fileService.deleteFileBatchById(ids));
+    }
+
+    @PostMapping("/update")
+    public Result updateFileEnable(@RequestBody Files files) {
+        return Result.success(fileService.updateFileEnable(files));
+    }
 }

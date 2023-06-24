@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import router from "@/router";
 export default {
   name: "Header",
   props: {
@@ -63,9 +62,6 @@ export default {
         ? JSON.parse(localStorage.getItem("user"))
         : {},
     };
-  },
-  mounted() {
-    console.log(userInfo);
   },
   methods: {
     signOut() {
